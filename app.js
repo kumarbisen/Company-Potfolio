@@ -67,11 +67,12 @@ function showPage(pageId) {
         targetPage = document.getElementById('portfolio-page');
     } else if (pageId === 'insights') {
         targetPage = document.getElementById('insights-page');
-    } else if (pageId === 'careers') {
-        targetPage = document.getElementById('careers-page');
-    } else if (pageId === 'workshop') {
-        targetPage = document.getElementById('workshop-page');
-    } else if (pageId === 'contact') {
+    } 
+    else if (pageId === 'careers') {
+       targetPage = document.getElementById('careers-page');
+     }// else if (pageId === 'workshop') {
+    //    targetPage = document.getElementById('workshop-page');} // 
+    else if (pageId === 'contact') {
         targetPage = document.getElementById('contact-page');
     }
     

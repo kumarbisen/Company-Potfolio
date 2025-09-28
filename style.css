@@ -1991,6 +1991,21 @@ select.form-control {
   margin-bottom: var(--space-16);
 }
 
+.hero hero--small {
+    background-image: url('Images/about-background.webp'); /* your image path */
+    background-size: cover;      /* makes the image cover the whole div */
+    background-position: center; /* keeps image centered */
+    background-repeat: no-repeat; /* no tiling */
+    width: 100%;                 /* full width */
+    height: 100vh;               /* full screen height */
+    display: flex;               /* centers content */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;                /* text color */
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .nav__list {
