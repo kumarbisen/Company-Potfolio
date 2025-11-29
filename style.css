@@ -1155,6 +1155,7 @@ select.form-control {
   margin: 0;
   padding: 0;
   gap: var(--space-24);
+  
 }
 
 .nav__item{
@@ -2005,17 +2006,76 @@ select.form-control {
     color: white;                /* text color */
 }
 
+/* Animation for the hamburger menu lines */
+.nav__toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+
+.nav__toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.nav__toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .nav__list {
-    display: none;
-  }
-  
-  .nav__toggle {
-    display: flex;
-  }
-  
+  /* 1. Show the toggle button */
+    .nav__toggle {
+        display: flex;
+        z-index: 1001; /* Ensure it sits above other content */
+    }
+    
+    /* 2. Style the navigation list for mobile */
+    .nav__list {
+        display: none; /* Hidden by default */
+        position: absolute;
+        top: 100%; /* Push it exactly below the header */
+        left: 0;
+        width: 100%;
+        background-color: var(--color-surface);
+        flex-direction: column; /* Stack links vertically */
+        padding: 20px;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        border-top: 1px solid var(--color-border);
+        align-items: flex-start; /* Align text to left */
+        gap: 10px;
+        z-index: 1000;
+    }
+
+    /* 3. THIS IS THE MISSING PART: Show menu when active */
+    .nav__list.active {
+        display: flex;
+        animation: slideDown 0.3s ease forwards;
+    }
+
+    /* Make links full width for easier tapping */
+    .nav__item {
+        width: 100%;
+    }
+    .nav__link {
+        display: block;
+        width: 100%;
+        padding: 15px;
+    }
+
+    /* Adjust specific sections for mobile */
+    .hero__title {
+        font-size: 2.5rem;
+    }
+    
+    .hero__subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .grid--4, .grid--3, .grid--2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+
   .hero__title {
     font-size: 2.5rem;
   }
@@ -2064,6 +2124,17 @@ select.form-control {
     width: 100%;
     max-width: 300px;
   }
+  /* Optional: Add a smooth slide down animation */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  
 }
 
 @media (max-width: 480px) {

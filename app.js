@@ -70,13 +70,7 @@ function showPage(pageId) {
     } else if (pageId === 'insights') {
         targetPage = document.getElementById('insights-page');
     } 
-    else if (pageId === 'careers') {
-       targetPage = document.getElementById('careers-page');
-     }// else if (pageId === 'workshop') {
-    //    targetPage = document.getElementById('workshop-page');} // 
-    else if (pageId === 'contact') {
-        targetPage = document.getElementById('contact-page');
-    }
+    
     
     // Hide all pages
     pages.forEach(page => {
@@ -95,7 +89,65 @@ function showPage(pageId) {
             homePage.classList.add('active');
         }
     }
+    
 }
+
+function initMobileMenu() {
+    const navToggle = document.getElementById('navToggle');
+    const navList = document.querySelector('.nav__list');
+
+    // Check if elements exist before adding listeners
+    if (navToggle && navList) {
+        
+        // Toggle Menu on Click
+        navToggle.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent click from bubbling to document immediately
+            
+            // Toggle the classes
+            this.classList.toggle('active');
+            navList.classList.toggle('active');
+            
+            console.log('Mobile menu toggled'); // Debugging log
+        });
+
+        // Close menu when clicking a link inside the menu
+        const navLinks = navList.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navList.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking anywhere outside
+        document.addEventListener('click', function(e) {
+            // If the menu is open AND the click is NOT on the toggle button AND NOT inside the menu
+            if (navList.classList.contains('active') && 
+                !navToggle.contains(e.target) && 
+                !navList.contains(e.target)) {
+                
+                navToggle.classList.remove('active');
+                navList.classList.remove('active');
+            }
+        });
+    } else {
+        console.error('Mobile menu elements not found');
+    }
+}
+function closeMobileMenu() {
+        const navToggle = document.getElementById('navToggle');
+        const navList = document.querySelector('.nav__list');
+        
+        if (navToggle) {
+            navToggle.classList.remove('active');
+        }
+        if (navList) {
+            navList.classList.remove('active');
+        }
+
+
+    }
+
 
 
 
