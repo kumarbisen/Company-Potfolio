@@ -1084,6 +1084,7 @@ select.form-control {
 
 /* Container layout */
 .container {
+  margin-top:var(--space-12);
   width: 100%;
   max-width: var(--container-xl);
   margin-right: auto;
@@ -1112,7 +1113,8 @@ select.form-control {
 
 /* Section */
 .section {
-  padding: 60px 0;
+  padding: 15px 0;
+  margin-bottom: 24px;
 }
 
 .section__title {
@@ -1494,9 +1496,12 @@ select.form-control {
 }
 
 /* Team Cards */
+
+
 .team-card {
   text-align: center;
   padding: var(--space-24);
+  margin: var(--space-10);
 }
 
 .team-card__avatar {
@@ -1514,7 +1519,7 @@ select.form-control {
 }
 
 .team-card h3 {
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--spa-8);
 }
 
 .team-card__title {
@@ -1523,30 +1528,6 @@ select.form-control {
   margin-bottom: var(--space-12);
 }
 
-/* Timeline */
-.timeline {
-  display: flex;
-  overflow-x: auto;
-  padding: var(--space-24) 0;
-  gap: var(--space-32);
-}
-
-.timeline__item {
-  flex: 0 0 auto;
-  text-align: center;
-  min-width: 200px;
-}
-
-.timeline__year {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
-  margin-bottom: var(--space-12);
-}
-
-.timeline__content {
-  color: var(--color-text-secondary);
-}
 
 /* Accordion */
 .accordion__item {
@@ -1923,7 +1904,9 @@ select.form-control {
 .feature-list {
   list-style: none;
   padding: 0;
-  margin: var(--space-24) 0;
+  justify-content: center;
+  align-items: center;
+  margin: var(--space-24)
 }
 
 .feature-list li {
@@ -1932,7 +1915,10 @@ select.form-control {
   position: relative;
   padding-left: var(--space-24);
 }
-
+#feature-list-heading{
+  margin: var(--space-24)
+  
+}
 .feature-list li::before {
   content: '✓';
   position: absolute;
@@ -1989,28 +1975,25 @@ select.form-control {
 
 /* About Content */
 .about-content {
-  max-width: 800px;
+  max-width: "100";
   margin: 0 auto;
   text-align: center;
 }
 
 .about-content h2 {
-  margin-bottom: var(--space-24);
+  margin-bottom: var(--space-2);
 }
 
 .about-content p {
   font-size: var(--font-size-lg);
   color: var(--color-text-secondary);
-  margin-bottom: var(--space-16);
+  margin-bottom: var(--space-1);
 }
 
 .hero hero--small {
-    background-image: url('Images/about-background.webp'); /* your image path */
-    background-size: cover;      /* makes the image cover the whole div */
-    background-position: center; /* keeps image centered */
-    background-repeat: no-repeat; /* no tiling */
+   
     width: 100%;                 /* full width */
-    height: 100vh;               /* full screen height */
+               /* full screen height */
     display: flex;               /* centers content */
     justify-content: center;
     align-items: center;
