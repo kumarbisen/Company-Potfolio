@@ -414,7 +414,8 @@ function validateForm(form) {
         if (!input.value.trim()) {
             showFieldError(input, 'This field is required');
             isValid = false;
-        } else if (input.type === 'email' && !isValidEmail(input.value)) {
+        }
+         else if (input.type === 'email' && !isValidEmail(input.value)) {
             showFieldError(input, 'Please enter a valid email address');
             isValid = false;
         }
