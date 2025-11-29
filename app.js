@@ -7,14 +7,22 @@ document.addEventListener('DOMContentLoaded', function() {
     initContactForm();
     initAccordion();
     initServiceNavigation();
+    initSmoothScrolling();
+    initScrollAnimations();
     
     // Show home page by default
     showPage('home');
+    
+    // Update copyright year
+    const currentYear = new Date().getFullYear();
+    const copyrightElement = document.querySelector('.footer__bottom p');
+    if (copyrightElement) {
+        copyrightElement.innerHTML = copyrightElement.innerHTML.replace('2025', currentYear);
+    }
 });
 
-// Page Navigation System
+// 1. Page Navigation System
 function initNavigation() {
-    // Get all navigation links with data-page attributes
     const navLinks = document.querySelectorAll('[data-page]');
     
     navLinks.forEach(link => {
@@ -22,10 +30,9 @@ function initNavigation() {
             e.preventDefault();
             const targetPage = this.getAttribute('data-page');
             
-            // Show the target page
             showPage(targetPage);
             
-            // Update active nav link - only for main nav links
+            // Update active state for main nav links
             if (this.classList.contains('nav__link')) {
                 document.querySelectorAll('.nav__link').forEach(navLink => {
                     navLink.classList.remove('active');
@@ -42,123 +49,131 @@ function initNavigation() {
     });
 }
 
-    
-   function showPage(pageId) {
-    console.log('Showing page:', pageId); 
+// 2. Show Page Function (Fixed for Pricing and Contact)
+function showPage(pageId) {
+    console.log('Showing page:', pageId);
     
     const pages = document.querySelectorAll('.page');
-    let targetPage = null;
-    
-    // Find the target page by ID
-    if (pageId === 'home') {
-        targetPage = document.getElementById('home-page');
-    } else if (pageId === 'about') {
-        targetPage = document.getElementById('about-page');
-    } else if (pageId === 'navigation') {
-        targetPage = document.getElementById('navigation-page');
-    } else if (pageId === 'services') {
-        targetPage = document.getElementById('services-page');
-    } else if (pageId === 'services-custom') {
-        targetPage = document.getElementById('services-custom-page');
-    } else if (pageId === 'services-commerce') {
-        targetPage = document.getElementById('services-commerce-page');
-    } else if (pageId === 'services-ai') {
-        targetPage = document.getElementById('services-ai-page');
-    } else if (pageId === 'services-salesforce') {
-        targetPage = document.getElementById('services-salesforce-page');
-    } else if (pageId === 'portfolio') {
-        targetPage = document.getElementById('portfolio-page');
-    } else if (pageId === 'insights') {
-        targetPage = document.getElementById('insights-page');
-    } else if (pageId === 'contact') {  // <--- ADD THIS BLOCK
-        targetPage = document.getElementById('contact-page');
-    }else if (pageId === 'pricing') {
-    targetPage = document.getElementById('pricing-page');
-}
     
     // Hide all pages
     pages.forEach(page => {
         page.classList.remove('active');
     });
     
-    // Show target page
+    // Dynamic ID finding (Works for 'pricing' -> 'pricing-page', 'contact' -> 'contact-page')
+    const targetId = pageId + '-page';
+    let targetPage = document.getElementById(targetId);
+
+    // Manual overrides if IDs don't match exactly
+    if (pageId === 'home') targetPage = document.getElementById('home-page');
+    
     if (targetPage) {
         targetPage.classList.add('active');
-        console.log('Page shown:', targetPage.id); 
     } else {
-        console.error('Page not found:', pageId); 
-        // Fallback to home page
+        console.error('Page not found:', pageId);
+        // Fallback to home
         const homePage = document.getElementById('home-page');
-        if (homePage) {
-            homePage.classList.add('active');
-        }
+        if(homePage) homePage.classList.add('active');
     }
 }
 
-
-
+// 3. Mobile Menu Functions (Fixed "Not Defined" Error)
 function initMobileMenu() {
     const navToggle = document.getElementById('navToggle');
     const navList = document.querySelector('.nav__list');
 
-    // Check if elements exist before adding listeners
     if (navToggle && navList) {
-        
-        // Toggle Menu on Click
         navToggle.addEventListener('click', function(e) {
-            e.stopPropagation(); // Prevent click from bubbling to document immediately
-            
-            // Toggle the classes
+            e.stopPropagation();
             this.classList.toggle('active');
             navList.classList.toggle('active');
-            
-            console.log('Mobile menu toggled'); // Debugging log
         });
 
-        // Close menu when clicking a link inside the menu
-        const navLinks = navList.querySelectorAll('a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navToggle.classList.remove('active');
-                navList.classList.remove('active');
-            });
-        });
-
-        // Close menu when clicking anywhere outside
+        // Close when clicking outside
         document.addEventListener('click', function(e) {
-            // If the menu is open AND the click is NOT on the toggle button AND NOT inside the menu
             if (navList.classList.contains('active') && 
                 !navToggle.contains(e.target) && 
                 !navList.contains(e.target)) {
-                
-                navToggle.classList.remove('active');
-                navList.classList.remove('active');
+                closeMobileMenu();
             }
         });
-    } else {
-        console.error('Mobile menu elements not found');
     }
 }
+
 function closeMobileMenu() {
-        const navToggle = document.getElementById('navToggle');
-        const navList = document.querySelector('.nav__list');
-        
-        if (navToggle) {
-            navToggle.classList.remove('active');
+    const navToggle = document.getElementById('navToggle');
+    const navList = document.querySelector('.nav__list');
+    
+    if (navToggle) navToggle.classList.remove('active');
+    if (navList) navList.classList.remove('active');
+}
+
+// 4. Smooth Scrolling (Fixed '#' Syntax Error)
+function initSmoothScrolling() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            
+            // Fix: Ignore empty '#' links to prevent crashing
+            if (href === '#' || href === '') {
+                e.preventDefault();
+                return;
+            }
+
+            // Only scroll if the target exists on the CURRENT visible page
+            try {
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            } catch (error) {
+                // Ignore errors for invalid selectors
+                console.log('Smooth scroll ignored for:', href);
+            }
+        });
+    });
+}
+
+// 5. Contact Form (WhatsApp Integration)
+function initContactForm() {
+    const contactForm = document.getElementById('contact-form');
+    if (!contactForm) return;
+
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const company = document.getElementById('company').value;
+        const budget = document.getElementById('budget').value;
+        const message = document.getElementById('message').value;
+
+        if (!name || !email || !message) {
+            alert('Please fill in all required fields.');
+            return;
         }
-        if (navList) {
-            navList.classList.remove('active');
-        }
 
+        const whatsappMessage = 
+            `*New Project Inquiry from BisenX Website*` +
+            `\n\n*Name:* ${name}` +
+            `\n*Email:* ${email}` +
+            `\n*Company:* ${company || 'N/A'}` +
+            `\n*Budget:* ${budget}` +
+            `\n*Message:* ${message}`;
 
-    }
+        const encodedMessage = encodeURIComponent(whatsappMessage);
+        const phoneNumber = "917371015156"; 
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
+        window.open(whatsappUrl, '_blank');
+    });
+}
 
-
-
-
-
-// Testimonial Slider
+// 6. Testimonial Slider
 function initTestimonialSlider() {
     const testimonials = document.querySelectorAll('.testimonial');
     let currentTestimonial = 0;
@@ -166,28 +181,17 @@ function initTestimonialSlider() {
     if (testimonials.length === 0) return;
     
     function showTestimonial(index) {
-        testimonials.forEach(testimonial => {
-            testimonial.classList.remove('active');
-        });
-        
-        if (testimonials[index]) {
-            testimonials[index].classList.add('active');
-        }
+        testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+        if (testimonials[index]) testimonials[index].classList.add('active');
     }
     
-    function nextTestimonial() {
+    setInterval(() => {
         currentTestimonial = (currentTestimonial + 1) % testimonials.length;
         showTestimonial(currentTestimonial);
-    }
-    
-    // Show first testimonial
-    showTestimonial(0);
-    
-    // Auto advance every 6 seconds
-    setInterval(nextTestimonial, 6000);
+    }, 6000);
 }
 
-// Portfolio Modal
+// 7. Portfolio Modal
 function initPortfolioModal() {
     const modal = document.getElementById('portfolio-modal');
     const modalTriggers = document.querySelectorAll('.portfolio-modal-trigger');
@@ -196,7 +200,6 @@ function initPortfolioModal() {
     
     if (!modal) return;
     
-    // Open modal
     modalTriggers.forEach(trigger => {
         trigger.addEventListener('click', function(e) {
             e.preventDefault();
@@ -206,82 +209,20 @@ function initPortfolioModal() {
         });
     });
     
-    // Close modal function
     function closeModal() {
         modal.classList.remove('active');
         document.body.style.overflow = '';
     }
     
-    // Close modal events
-    if (modalClose) {
-        modalClose.addEventListener('click', closeModal);
-    }
+    if (modalClose) modalClose.addEventListener('click', closeModal);
+    if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
     
-    if (modalOverlay) {
-        modalOverlay.addEventListener('click', closeModal);
-    }
-    
-    // Close modal with Escape key
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
-        }
+        if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
     });
 }
 
-
-// Contact Form to WhatsApp
-function initContactForm() {
-    const contactForm = document.getElementById('contact-form');
-
-    if (!contactForm) return;
-
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // 1. Get form values
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const company = document.getElementById('company').value;
-        const budget = document.getElementById('budget').value;
-        const message = document.getElementById('message').value;
-
-        // 2. Validate required fields (optional but recommended)
-        if (!name || !message) {
-            alert('Please fill in all required fields.');
-            return;
-        }
-
-        // 3. Format the message for WhatsApp
-        // We use \n for new lines
-        const whatsappMessage = 
-            `*New Project Inquiry from BisenX Website*` +
-            `\n\n*Name:* ${name}` +
-            `\n*Email:* ${email}` +
-            `\n*Company:* ${company || 'N/A'}` +
-            `\n*Budget:* ${budget}` +
-            `\n*Message:* ${message}`;
-
-        // 4. Encode the message for URL
-        const encodedMessage = encodeURIComponent(whatsappMessage);
-
-        // 5. Your WhatsApp Number (from your footer)
-        // Format: CountryCode + Number (No + sign, no dashes)
-        const phoneNumber = "917371015156"; 
-
-        // 6. Create the WhatsApp URL
-        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
-        // 7. Open WhatsApp in a new tab
-        window.open(whatsappUrl, '_blank');
-
-        // Optional: Reset form after sending
-        // this.reset();
-    });
-
-}
-
-// Accordion Functionality
+// 8. Accordion
 function initAccordion() {
     const accordionHeaders = document.querySelectorAll('.accordion__header');
     
@@ -290,7 +231,6 @@ function initAccordion() {
             const content = this.nextElementSibling;
             const isActive = this.classList.contains('active');
             
-            // Close all accordion items
             accordionHeaders.forEach(otherHeader => {
                 otherHeader.classList.remove('active');
                 if (otherHeader.nextElementSibling) {
@@ -298,7 +238,6 @@ function initAccordion() {
                 }
             });
             
-            // Open clicked item if it wasn't active
             if (!isActive && content) {
                 this.classList.add('active');
                 content.classList.add('active');
@@ -307,77 +246,29 @@ function initAccordion() {
     });
 }
 
-// Service Navigation
+// 9. Service Navigation
 function initServiceNavigation() {
-    const serviceCards = document.querySelectorAll('.service-overview-card');
+    const cards = document.querySelectorAll('.service-overview-card, .card');
     
-    serviceCards.forEach(card => {
+    cards.forEach(card => {
+        // Find links inside cards that have data-page attributes
         const link = card.querySelector('a[data-page]');
         if (link) {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetPage = this.getAttribute('data-page');
-                showPage(targetPage);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        }
-        
-        // Also make the entire card clickable
-        card.addEventListener('click', function(e) {
-            if (e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON') {
-                const link = this.querySelector('a[data-page]');
-                if (link) {
+            // Make the whole card clickable
+            card.addEventListener('click', function(e) {
+                // Don't trigger if user clicked a button or link directly (to avoid double trigger)
+                if (e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON') {
                     const targetPage = link.getAttribute('data-page');
                     showPage(targetPage);
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
-            }
-        });
+            });
+        }
     });
 }
 
-// Enhanced navigation with breadcrumbs
-function updateBreadcrumb(pageName) {
-    // This could be expanded to show breadcrumb navigation
-    document.title = `Bisenx- ${pageName}`;
-}
-
-// Utility Functions
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Smooth scrolling for anchor links
-function initSmoothScrolling() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-}
-
-// Add scroll-based animations
+// 10. Scroll Animations
 function initScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -385,10 +276,9 @@ function initScrollAnimations() {
                 entry.target.style.transform = 'translateY(0)';
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.1 });
     
-    // Observe cards and sections for animation
-    document.querySelectorAll('.card, .metric, .pillar').forEach(el => {
+    document.querySelectorAll('.card, .metric').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -396,181 +286,31 @@ function initScrollAnimations() {
     });
 }
 
-// Enhanced form validation
-function validateForm(form) {
-    const inputs = form.querySelectorAll('input[required], textarea[required]');
-    let isValid = true;
-    
-    inputs.forEach(input => {
-        const errorElement = input.parentElement.querySelector('.error-message');
-        
-        // Remove existing error
-        if (errorElement) {
-            errorElement.remove();
-        }
-        
-        // Reset input styling
-        input.style.borderColor = '';
-        
-        // Validate input
-        if (!input.value.trim()) {
-            showFieldError(input, 'This field is required');
-            isValid = false;
-        }
-         else if (input.type === 'email' && !isValidEmail(input.value)) {
-            showFieldError(input, 'Please enter a valid email address');
-            isValid = false;
-        }
-    });
-    
-    return isValid;
-}
+// 11. Hero Carousel
+document.addEventListener('DOMContentLoaded', function() {
+    const wrap = document.querySelector('.slides-wrap');
+    const slides = document.querySelectorAll('.slide');
+    if (!wrap || slides.length === 0) return;
 
-function showFieldError(input, message) {
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'error-message';
-    errorDiv.style.color = '#ff4444';
-    errorDiv.style.fontSize = '12px';
-    errorDiv.style.marginTop = '4px';
-    errorDiv.textContent = message;
-    input.parentElement.appendChild(errorDiv);
-    input.style.borderColor = '#ff4444';
-}
+    let current = 0;
+    setInterval(() => {
+        current = (current + 1) % slides.length;
+        wrap.style.transform = `translateX(-${current * 100}%)`;
+    }, 3000);
+});
 
-function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+// Utility: Debounce for Resize (Fixes "later is not defined" error)
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
 }
 
 // Handle window resize
 window.addEventListener('resize', debounce(() => {
-    const isMobile = window.innerWidth <= 768;
-    
-    if (!isMobile) {
+    if (window.innerWidth > 768) {
         closeMobileMenu();
     }
 }, 250));
-
-// Initialize additional features
-document.addEventListener('DOMContentLoaded', function() {
-    initSmoothScrolling();
-    initScrollAnimations();
-    
-    // Add dynamic year to copyright
-    const currentYear = new Date().getFullYear();
-    const copyrightElement = document.querySelector('.footer__bottom p');
-    if (copyrightElement) {
-        copyrightElement.innerHTML = copyrightElement.innerHTML.replace('2025', currentYear);
-    }
-    
-    // Add hover effects to interactive elements
-    document.querySelectorAll('.card, .btn').forEach(element => {
-        element.addEventListener('mouseenter', function() {
-            if (this.classList.contains('card')) {
-                this.style.transform = 'translateY(-2px)';
-            }
-        });
-        
-        element.addEventListener('mouseleave', function() {
-            if (this.classList.contains('card')) {
-                this.style.transform = 'translateY(0)';
-            }
-        });
-    });
-    
-    // Add click tracking for analytics (placeholder)
-    document.addEventListener('click', function(e) {
-        if (e.target.matches('button, .btn, a[data-page]')) {
-            console.log('Navigation clicked:', e.target.textContent.trim() || e.target.getAttribute('data-page'));
-        }
-    });
-});
-
-// Handle form input improvements
-document.addEventListener('DOMContentLoaded', function() {
-    const formInputs = document.querySelectorAll('.form-control');
-    
-    formInputs.forEach(input => {
-        // Clear error styling on input
-        input.addEventListener('input', function() {
-            this.style.borderColor = '';
-            const errorElement = this.parentElement.querySelector('.error-message');
-            if (errorElement) {
-                errorElement.remove();
-            }
-        });
-        
-        // Add focus/blur styling
-        input.addEventListener('focus', function() {
-            this.style.borderColor = 'var(--color-primary)';
-            this.style.boxShadow = '0 0 0 3px rgba(0, 59, 119, 0.1)';
-        });
-        
-        input.addEventListener('blur', function() {
-            this.style.boxShadow = '';
-        });
-    });
-});
-
-// Enhanced dropdown functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdowns = document.querySelectorAll('.nav__dropdown');
-    
-    dropdowns.forEach(dropdown => {
-        const menu = dropdown.querySelector('.nav__dropdown-menu');
-        if (!menu) return;
-        
-        let timeoutId;
-        
-        dropdown.addEventListener('mouseenter', function() {
-            clearTimeout(timeoutId);
-            menu.style.opacity = '1';
-            menu.style.visibility = 'visible';
-            menu.style.transform = 'translateY(0)';
-        });
-        
-        dropdown.addEventListener('mouseleave', function() {
-            timeoutId = setTimeout(() => {
-                menu.style.opacity = '0';
-                menu.style.visibility = 'hidden';
-                menu.style.transform = 'translateY(-10px)';
-            }, 150);
-        });
-    });
-});
-
-// Error handling
-window.addEventListener('error', function(e) {
-    console.error('JavaScript error:', e.error);
-});
-
-// Performance monitoring
-window.addEventListener('load', function() {
-    setTimeout(() => {
-        if (performance.getEntriesByType) {
-            const perfData = performance.getEntriesByType('navigation')[0];
-            if (perfData) {
-                console.log('Page load time:', Math.round(perfData.loadEventEnd - perfData.loadEventStart), 'ms');
-            }
-        }
-    }, 0);
-});
-
-// Hero crousal
-document.addEventListener('DOMContentLoaded', function() {
-  const wrap = document.querySelector('.slides-wrap');
-  const slides = document.querySelectorAll('.slide');
-  
-  let current = 0;
-
-  // Function to update the visible slide
-  function updateCarousel() {
-    wrap.style.transform = `translateX(-${current * 100}%)`;
-  }
-
-  // Auto-scroll every 3 seconds
-  let autoScroll = setInterval(() => {
-  current = (current + 1) % slides.length;
-  updateCarousel();
-  }, 3000);
-
-})
