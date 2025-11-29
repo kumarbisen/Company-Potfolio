@@ -13,9 +13,10 @@ jobs:
         uses: actions/checkout@v4
       
       - name: 📂 Sync files
-        uses: webitsbr/github-to-ftp@v1.0.1
+        uses: Samkirland/FTP-Deploy-Action@v4.3.4
         with:
           server: ftpupload.net
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /bisenx.co.in/htdocs/
+          protocol: ftps
