@@ -53,6 +53,8 @@ function showPage(pageId) {
         targetPage = document.getElementById('home-page');
     } else if (pageId === 'about') {
         targetPage = document.getElementById('about-page');
+    }else if (pageId === 'navigation') {
+        targetPage = document.getElementById('navigation-page');
     } else if (pageId === 'services') {
         targetPage = document.getElementById('services-page');
     } else if (pageId === 'services-custom') {
@@ -95,35 +97,9 @@ function showPage(pageId) {
     }
 }
 
-// Mobile Menu Toggle
-function initMobileMenu() {
-    const navToggle = document.getElementById('navToggle');
-    const navList = document.querySelector('.nav__list');
-    
-    if (navToggle && navList) {
-        navToggle.addEventListener('click', function() {
-            navList.classList.toggle('mobile-active');
-            this.classList.toggle('active');
-        });
-    }
-    
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.nav') && navList && navList.classList.contains('mobile-active')) {
-            closeMobileMenu();
-        }
-    });
-}
 
-function closeMobileMenu() {
-    const navList = document.querySelector('.nav__list');
-    const navToggle = document.getElementById('navToggle');
-    
-    if (navList && navToggle) {
-        navList.classList.remove('mobile-active');
-        navToggle.classList.remove('active');
-    }
-}
+
+
 
 // Testimonial Slider
 function initTestimonialSlider() {
@@ -292,7 +268,7 @@ function initServiceNavigation() {
 // Enhanced navigation with breadcrumbs
 function updateBreadcrumb(pageName) {
     // This could be expanded to show breadcrumb navigation
-    document.title = `Closeloop Clone - ${pageName}`;
+    document.title = `Bisenx- ${pageName}`;
 }
 
 // Utility Functions

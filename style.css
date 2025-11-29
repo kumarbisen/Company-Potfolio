@@ -1244,6 +1244,10 @@ select.form-control {
   margin: 3px 0;
   transition: all var(--duration-fast) var(--ease-standard);
 }
+/* toggle to rotate 180 deg */
+.nav__toggle:active {
+  transform: rotateX(180deg);
+}
 
 /* Page Management */
 .page {
