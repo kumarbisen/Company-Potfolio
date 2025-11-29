@@ -42,8 +42,9 @@ function initNavigation() {
     });
 }
 
-function showPage(pageId) {
-    console.log('Showing page:', pageId); // Debug log
+    
+   function showPage(pageId) {
+    console.log('Showing page:', pageId); 
     
     const pages = document.querySelectorAll('.page');
     let targetPage = null;
@@ -53,7 +54,7 @@ function showPage(pageId) {
         targetPage = document.getElementById('home-page');
     } else if (pageId === 'about') {
         targetPage = document.getElementById('about-page');
-    }else if (pageId === 'navigation') {
+    } else if (pageId === 'navigation') {
         targetPage = document.getElementById('navigation-page');
     } else if (pageId === 'services') {
         targetPage = document.getElementById('services-page');
@@ -69,8 +70,9 @@ function showPage(pageId) {
         targetPage = document.getElementById('portfolio-page');
     } else if (pageId === 'insights') {
         targetPage = document.getElementById('insights-page');
-    } 
-    
+    } else if (pageId === 'contact') {  // <--- ADD THIS BLOCK
+        targetPage = document.getElementById('contact-page');
+    }
     
     // Hide all pages
     pages.forEach(page => {
@@ -80,17 +82,18 @@ function showPage(pageId) {
     // Show target page
     if (targetPage) {
         targetPage.classList.add('active');
-        console.log('Page shown:', targetPage.id); // Debug log
+        console.log('Page shown:', targetPage.id); 
     } else {
-        console.error('Page not found:', pageId); // Debug log
+        console.error('Page not found:', pageId); 
         // Fallback to home page
         const homePage = document.getElementById('home-page');
         if (homePage) {
             homePage.classList.add('active');
         }
     }
-    
 }
+
+
 
 function initMobileMenu() {
     const navToggle = document.getElementById('navToggle');
@@ -224,42 +227,56 @@ function initPortfolioModal() {
     });
 }
 
-// Contact Form
+
+// Contact Form to WhatsApp
 function initContactForm() {
     const contactForm = document.getElementById('contact-form');
-    
+
     if (!contactForm) return;
-    
+
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(this);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const company = formData.get('company');
-        const budget = formData.get('budget');
-        const message = formData.get('message');
-        
-        // Basic validation
+
+        // 1. Get form values
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const company = document.getElementById('company').value;
+        const budget = document.getElementById('budget').value;
+        const message = document.getElementById('message').value;
+
+        // 2. Validate required fields (optional but recommended)
         if (!name || !email || !message) {
-            alert('Please fill in all required fields (Name, Email, and Message).');
+            alert('Please fill in all required fields.');
             return;
         }
-        
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            alert('Please enter a valid email address.');
-            return;
-        }
-        
-        // Success message
-        alert('Thank you for your message! We\'ll get back to you within 24 hours.');
-        
-        // Reset form
-        this.reset();
+
+        // 3. Format the message for WhatsApp
+        // We use \n for new lines
+        const whatsappMessage = 
+            `*New Project Inquiry from BisenX Website*` +
+            `\n\n*Name:* ${name}` +
+            `\n*Email:* ${email}` +
+            `\n*Company:* ${company || 'N/A'}` +
+            `\n*Budget:* ${budget}` +
+            `\n*Message:* ${message}`;
+
+        // 4. Encode the message for URL
+        const encodedMessage = encodeURIComponent(whatsappMessage);
+
+        // 5. Your WhatsApp Number (from your footer)
+        // Format: CountryCode + Number (No + sign, no dashes)
+        const phoneNumber = "917371015156"; 
+
+        // 6. Create the WhatsApp URL
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+        // 7. Open WhatsApp in a new tab
+        window.open(whatsappUrl, '_blank');
+
+        // Optional: Reset form after sending
+        // this.reset();
     });
+
 }
 
 // Accordion Functionality

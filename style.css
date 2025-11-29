@@ -1084,7 +1084,7 @@ select.form-control {
 
 /* Container layout */
 .container {
-  margin-top:var(--space-12);
+ 
   width: 100%;
   max-width: var(--container-xl);
   margin-right: auto;
@@ -1113,8 +1113,11 @@ select.form-control {
 
 /* Section */
 .section {
-  padding: 24px 0;
+  
   margin-bottom: 24px;
+}
+.section-home{
+padding: 30px 0;
 }
 
 .section__title {
@@ -1158,13 +1161,7 @@ select.form-control {
   
 }
 
-.nav__item{
-  /* Change for navigation buttons */
-  /* padding: 8px;
-  border-radius: var(--radius-sm);
-  border:2px solid black; */
-  
-}
+
 
 .nav__link {
   color: var(--color-text);
