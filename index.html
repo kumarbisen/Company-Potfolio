@@ -44,6 +44,9 @@
                         <li class="nav__item">
                             <a href="#" class="nav__link" data-page="contact">Contact</a>
                         </li>
+                        <li class="nav__item">
+                        <a href="#" class="nav__link" data-page="pricing">Pricing</a>
+                        </li>
                     </ul>
                     <button class="nav__toggle"  id="navToggle">
                         <span></span>
@@ -86,7 +89,6 @@
               </section>
 
 
-           
             <!-- Services Grid -->
             <section class="services-grid section">
                 <div class="container">
@@ -469,6 +471,268 @@
             </section>
         </section>
 
+        
+              <section class="page" id="pricing-page">
+    <div class="hero hero--small">
+        <div class="container">
+            <h1>Growth Services Blueprint</h1>
+            <p>Transparent pricing tailored for your business growth</p>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <!-- Grid for Standard Plans -->
+            <div class="grid grid--3">
+                
+                <!-- Meta Ads -->
+                <div class="pricing-card card" style="border-top: 4px solid #1877F2;">
+                    <div class="pricing-header">
+                        <div class="icon-wrapper" style="background: rgba(24, 119, 242, 0.1); color: #1877F2;">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <h3>Meta Ads</h3>
+                        <span class="sub-label">Facebook & Instagram</span>
+                    </div>
+                    <div class="price-tag">
+                        <span class="amount">₹15,000</span><span class="period">/mo</span>
+                    </div>
+                    <p class="fee-note">Management Fee</p>
+                    <div class="ad-spend-note">
+                        📌 20% charge if ad spend > ₹50k/mo
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Campaign strategy & setup</li>
+                        <li>Audience targeting</li>
+                        <li>4–6 ad creatives per month</li>
+                        <li>A/B testing & optimization</li>
+                        <li>Weekly performance reports</li>
+                    </ul>
+                    <a href="#" onclick="showPage('contact'); return false;" class="btn btn--outline btn--full-width">Get Started</a>
+                </div>
+
+                <!-- Google Ads -->
+                <div class="pricing-card card" style="border-top: 4px solid #34A853;">
+                    <div class="pricing-header">
+                        <div class="icon-wrapper" style="background: rgba(52, 168, 83, 0.1); color: #34A853;">
+                            <i class="fab fa-google"></i>
+                        </div>
+                        <h3>Google Ads</h3>
+                        <span class="sub-label">Search & Display</span>
+                    </div>
+                    <div class="price-tag">
+                        <span class="amount">₹18,000</span><span class="period">/mo</span>
+                    </div>
+                    <p class="fee-note">Management Fee</p>
+                    <div class="ad-spend-note">
+                        📌 20% charge if ad spend > ₹60k/mo
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Search + Display campaigns</li>
+                        <li>Keyword research & setup</li>
+                        <li>Conversion tracking</li>
+                        <li>Weekly optimization</li>
+                        <li>Reporting dashboard access</li>
+                    </ul>
+                    <a href="#" onclick="showPage('contact'); return false;" class="btn btn--outline btn--full-width">Get Started</a>
+                </div>
+
+                <!-- SEO -->
+                <div class="pricing-card card" style="border-top: 4px solid #F4B400;">
+                    <div class="pricing-header">
+                        <div class="icon-wrapper" style="background: rgba(244, 180, 0, 0.1); color: #F4B400;">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>SEO</h3>
+                        <span class="sub-label">Search Engine Optimization</span>
+                    </div>
+                    <div class="price-tag">
+                        <span class="amount">₹12,000</span><span class="period">/mo</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>On-page SEO (10 pages)</li>
+                        <li>Technical audit and fixes</li>
+                        <li>Weekly keyword tracking</li>
+                        <li>40+ high-quality backlinks</li>
+                        <li>Competitor analysis</li>
+                        <li>Monthly SEO report</li>
+                    </ul>
+                    <a href="#" onclick="showPage('contact'); return false;" class="btn btn--outline btn--full-width">Get Started</a>
+                </div>
+
+                <!-- Graphic Design -->
+                <div class="pricing-card card" style="border-top: 4px solid #8E44AD;">
+                    <div class="pricing-header">
+                        <div class="icon-wrapper" style="background: rgba(142, 68, 173, 0.1); color: #8E44AD;">
+                            <i class="fas fa-pen-nib"></i>
+                        </div>
+                        <h3>Design + Video</h3>
+                        <span class="sub-label">Combo Plan</span>
+                    </div>
+                    <div class="price-tag">
+                        <span class="amount">₹12,000</span><span class="period">/mo</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>12–16 social posts/month</li>
+                        <li>8–10 short videos (Reels/Shorts)</li>
+                        <li>Thumbnails, banners, stories</li>
+                        <li>Premium visual templates</li>
+                        <li>Square/portrait formats</li>
+                    </ul>
+                    <a href="#" onclick="showPage('contact'); return false;" class="btn btn--outline btn--full-width">Get Started</a>
+                </div>
+
+                <!-- Website Dev -->
+                <div class="pricing-card card" style="border-top: 4px solid #2980B9;">
+                    <div class="pricing-header">
+                        <div class="icon-wrapper" style="background: rgba(41, 128, 185, 0.1); color: #2980B9;">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>Web Development</h3>
+                        <span class="sub-label">One-time Charge</span>
+                    </div>
+                    <div class="price-tag">
+                        <span class="prefix">From</span>
+                        <span class="amount">₹21,000</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Fully responsive website</li>
+                        <li>Up to 5–10 pages</li>
+                        <li>Custom brand design</li>
+                        <li>Basic SEO setup</li>
+                        <li>Blog & contact integration</li>
+                        <li>1-month free maintenance</li>
+                    </ul>
+                    <a href="#" onclick="showPage('contact'); return false;" class="btn btn--outline btn--full-width">Get Started</a>
+                </div>
+
+                <!-- App Dev -->
+                <div class="pricing-card card" style="border-top: 4px solid #E67E22;">
+                    <div class="pricing-header">
+                        <div class="icon-wrapper" style="background: rgba(230, 126, 34, 0.1); color: #E67E22;">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>App Development</h3>
+                        <span class="sub-label">One-time Charge</span>
+                    </div>
+                    <div class="price-tag">
+                        <span class="prefix">From</span>
+                        <span class="amount">₹30,000</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Android & iOS compatible</li>
+                        <li>UI/UX design & dev</li>
+                        <li>Admin dashboard</li>
+                        <li>Payment gateway integration</li>
+                        <li>Play Store & App Store deploy</li>
+                        <li>1-month free support</li>
+                    </ul>
+                    <a href="#" onclick="showPage('contact'); return false;" class="btn btn--outline btn--full-width">Get Started</a>
+                </div>
+
+                 <!-- Whatsapp Chatbots -->
+                 <div class="pricing-card card" style="border-top: 4px solid #25D366;">
+                    <div class="pricing-header">
+                        <div class="icon-wrapper" style="background: rgba(37, 211, 102, 0.1); color: #25D366;">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h3>WhatsApp Chatbots</h3>
+                        <span class="sub-label">Automation</span>
+                    </div>
+                    <div class="price-tag">
+                        <span class="amount">₹9,700</span><span class="period">/mo</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Full automated advertising</li>
+                        <li>Automated replies</li>
+                        <li>Customer engagement</li>
+                        <li>24/7 availability</li>
+                    </ul>
+                    <a href="#" onclick="showPage('contact'); return false;" class="btn btn--outline btn--full-width">Get Started</a>
+                </div>
+
+                <!-- Organic Marketing -->
+                <div class="pricing-card card" style="border-top: 4px solid #27AE60;">
+                    <div class="pricing-header">
+                        <div class="icon-wrapper" style="background: rgba(39, 174, 96, 0.1); color: #27AE60;">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Organic Marketing</h3>
+                        <span class="sub-label">Growth Strategy</span>
+                    </div>
+                    <div class="price-tag">
+                        <span class="amount">₹10,000</span><span class="period">/mo</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Consistent content posting</li>
+                        <li>Community management (DMs)</li>
+                        <li>Hashtag & trend research</li>
+                        <li>Influencer outreach ideas</li>
+                        <li>Monthly growth report</li>
+                    </ul>
+                    <a href="#" onclick="showPage('contact'); return false;" class="btn btn--outline btn--full-width">Get Started</a>
+                </div>
+
+                <!-- Inorganic Marketing -->
+                <div class="pricing-card card" style="border-top: 4px solid #C0392B;">
+                    <div class="pricing-header">
+                        <div class="icon-wrapper" style="background: rgba(192, 57, 43, 0.1); color: #C0392B;">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h3>Inorganic Marketing</h3>
+                        <span class="sub-label">Paid Campaigns</span>
+                    </div>
+                    <div class="price-tag">
+                        <span class="amount">Custom</span>
+                    </div>
+                    <p class="fee-note">Based on budget</p>
+                    <ul class="pricing-features">
+                        <li>Paid campaigns (FB, Insta, YT, Google)</li>
+                        <li>Funnel-based ad strategy</li>
+                        <li>Conversion rate optimization</li>
+                        <li>Detailed ROI analysis</li>
+                        <li>Weekly budget reports</li>
+                    </ul>
+                    <a href="#" onclick="showPage('contact'); return false;" class="btn btn--outline btn--full-width">Get Started</a>
+                </div>
+
+            </div>
+
+            <!-- All-in-One Combo Plan (Featured) -->
+            <div class="combo-plan-container" style="margin-top: 50px;">
+                <div class="pricing-card card combo-card">
+                    <div class="combo-badge">BEST VALUE</div>
+                    <div class="grid grid--2">
+                        <div class="combo-info">
+                            <h2>🎯 All-in-One Combo Growth Plan</h2>
+                            <p class="combo-subtitle">Ideal for businesses looking for full-scale digital growth with a single, dedicated team.</p>
+                            <div class="price-tag large">
+                                <span class="amount">₹75,000</span><span class="period">/mo</span>
+                            </div>
+                            <a href="#" onclick="showPage('contact'); return false;" class="btn btn--primary btn--lg" style="margin-top: 20px;">Start Full-Scale Growth</a>
+                        </div>
+                        <div class="combo-features">
+                            <h3>✅ Includes Everything:</h3>
+                            <ul class="pricing-features two-col">
+                                <li>Meta Ads Management</li>
+                                <li>Google Ads Management</li>
+                                <li>SEO (Search Engine Optimization)</li>
+                                <li>Graphic Design + Video Editing</li>
+                                <li>Organic Marketing Strategy</li>
+                                <li>Inorganic Marketing Execution</li>
+                                <li>Website Development (1 basic page)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</section>
+
+           
+
         <!-- PORTFOLIO PAGE -->
         <section class="page" id="portfolio-page">
             <div class="hero hero--small">
@@ -692,32 +956,7 @@
                     <p>Ready to start your project? Let's discuss how we can help</p>
                 </div>
             </div>
-            
-            <section class="section">
-                <div class="container">
-                    <div class="contact-process">
-                        <h2>Our Process</h2>
-                        <div class="process-steps">
-                            <div class="process-step">
-                                <div class="step-number">1</div>
-                                <h3>Discovery</h3>
-                                <p>We learn about your business needs and goals</p>
-                            </div>
-                            <div class="process-step">
-                                <div class="step-number">2</div>
-                                <h3>Strategy</h3>
-                                <p>We develop a customized solution strategy</p>
-                            </div>
-                            <div class="process-step">
-                                <div class="step-number">3</div>
-                                <h3>Delivery</h3>
-                                <p>We execute and deliver exceptional results</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
+        
             <section class="section">
                 <div class="container">
                     <div class="contact-content">

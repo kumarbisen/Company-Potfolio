@@ -2152,3 +2152,175 @@ padding: 30px 0;
     font-size: 1.8rem;
   }
 }
+
+
+/* Pricing Page Styles */
+.pricing-card {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    height: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.pricing-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.pricing-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.icon-wrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin: 0 auto 15px;
+}
+
+.pricing-header h3 {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+}
+
+.sub-label {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+.price-tag {
+    text-align: center;
+    margin-bottom: 5px;
+    color: var(--color-primary);
+}
+
+.price-tag .prefix {
+    font-size: 1rem;
+    vertical-align: top;
+    margin-right: 2px;
+}
+
+.price-tag .amount {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.price-tag .period {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+}
+
+.fee-note {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 15px;
+}
+
+.ad-spend-note {
+    background: var(--light-color);
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px dashed var(--color-border);
+}
+
+.pricing-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px 0;
+    flex-grow: 1; /* Pushes button to bottom */
+}
+
+.pricing-features li {
+    padding: 8px 0;
+    padding-left: 25px;
+    position: relative;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    border-bottom: 1px solid var(--light-color);
+}
+
+.pricing-features li:last-child {
+    border-bottom: none;
+}
+
+.pricing-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-success); /* Uses your existing success color variable */
+    font-weight: bold;
+}
+
+/* Combo Plan Specifics */
+.combo-card {
+    border: 2px solid var(--color-primary);
+    background: linear-gradient(to right bottom, #ffffff, var(--light-color));
+    position: relative;
+    overflow: hidden;
+}
+
+.combo-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--color-primary);
+    color: white;
+    padding: 8px 20px;
+    border-bottom-left-radius: 10px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.combo-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 20px;
+}
+
+.combo-subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 20px;
+}
+
+.price-tag.large .amount {
+    font-size: 3rem;
+}
+
+.pricing-features.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.pricing-features.two-col li {
+    border-bottom: none;
+}
+
+/* Mobile Adjustments for Pricing */
+@media (max-width: 768px) {
+    .pricing-features.two-col {
+        grid-template-columns: 1fr;
+    }
+    
+    .combo-info {
+        padding-right: 0;
+        margin-bottom: 30px;
+        text-align: center;
+        border-bottom: 1px solid var(--color-border);
+        padding-bottom: 20px;
+    }
+}

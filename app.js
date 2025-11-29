@@ -72,7 +72,9 @@ function initNavigation() {
         targetPage = document.getElementById('insights-page');
     } else if (pageId === 'contact') {  // <--- ADD THIS BLOCK
         targetPage = document.getElementById('contact-page');
-    }
+    }else if (pageId === 'pricing') {
+    targetPage = document.getElementById('pricing-page');
+}
     
     // Hide all pages
     pages.forEach(page => {
