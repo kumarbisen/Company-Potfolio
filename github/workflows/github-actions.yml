@@ -17,5 +17,5 @@ jobs:
           password: ${{secrets.FTP_PASSWORD}}
           server-dir: /bisenx.co.in/htdocs
           retries: 3
-          retryDelay:10 
+          retryDelay: 10 
    
