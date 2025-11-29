@@ -245,7 +245,7 @@ function initContactForm() {
         const message = document.getElementById('message').value;
 
         // 2. Validate required fields (optional but recommended)
-        if (!name || !email || !message) {
+        if (!name || !message) {
             alert('Please fill in all required fields.');
             return;
         }
