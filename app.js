@@ -1,27 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all functionality
-    initNavigation();
-    initMobileMenu();
-    initTestimonialSlider();
-    initPortfolioModal();
-    initContactForm();
-    initAccordion();
-    initServiceNavigation();
-    initSmoothScrolling();
-    initScrollAnimations();
-    
-    // Show home page by default
-    showPage('home');
-    
-    // Update copyright year
-    const currentYear = new Date().getFullYear();
-    const copyrightElement = document.querySelector('.footer__bottom p');
-    if (copyrightElement) {
-        copyrightElement.innerHTML = copyrightElement.innerHTML.replace('2025', currentYear);
-    }
-});
-
-// 1. Page Navigation System
+/* =========================================
+   1. NAVIGATION SYSTEM
+   ========================================= */
 function initNavigation() {
     const navLinks = document.querySelectorAll('[data-page]');
     
@@ -49,7 +28,6 @@ function initNavigation() {
     });
 }
 
-// 2. Show Page Function (Fixed for Pricing and Contact)
 function showPage(pageId) {
     console.log('Showing page:', pageId);
     
@@ -60,17 +38,24 @@ function showPage(pageId) {
         page.classList.remove('active');
     });
     
-    // Dynamic ID finding (Works for 'pricing' -> 'pricing-page', 'contact' -> 'contact-page')
+    // Dynamic ID finding
     const targetId = pageId + '-page';
     let targetPage = document.getElementById(targetId);
 
-    // Manual overrides if IDs don't match exactly
+    // Manual overrides
     if (pageId === 'home') targetPage = document.getElementById('home-page');
-
     else if (pageId === 'services-social') targetPage = document.getElementById('services-social-page');
-    
+
     if (targetPage) {
         targetPage.classList.add('active');
+        
+        // Update the URL Hash without reloading (e.g. #services-social)
+        if(history.pushState) {
+            history.pushState(null, null, '#' + pageId);
+        } else {
+            window.location.hash = pageId;
+        }
+        
     } else {
         console.error('Page not found:', pageId);
         // Fallback to home
@@ -79,13 +64,19 @@ function showPage(pageId) {
     }
 }
 
-// 3. Mobile Menu Functions (Fixed "Not Defined" Error)
+/* =========================================
+   2. MOBILE MENU
+   ========================================= */
 function initMobileMenu() {
     const navToggle = document.getElementById('navToggle');
     const navList = document.querySelector('.nav__list');
 
     if (navToggle && navList) {
-        navToggle.addEventListener('click', function(e) {
+        // Clear old listeners to be safe
+        const newToggle = navToggle.cloneNode(true);
+        navToggle.parentNode.replaceChild(newToggle, navToggle);
+        
+        newToggle.addEventListener('click', function(e) {
             e.stopPropagation();
             this.classList.toggle('active');
             navList.classList.toggle('active');
@@ -94,10 +85,16 @@ function initMobileMenu() {
         // Close when clicking outside
         document.addEventListener('click', function(e) {
             if (navList.classList.contains('active') && 
-                !navToggle.contains(e.target) && 
+                !newToggle.contains(e.target) && 
                 !navList.contains(e.target)) {
                 closeMobileMenu();
             }
+        });
+        
+        // Close when clicking a link inside the menu
+        const menuLinks = navList.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
         });
     }
 }
@@ -110,42 +107,45 @@ function closeMobileMenu() {
     if (navList) navList.classList.remove('active');
 }
 
-// 4. Smooth Scrolling (Fixed '#' Syntax Error)
+/* =========================================
+   3. SMOOTH SCROLLING
+   ========================================= */
 function initSmoothScrolling() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             
-            // Fix: Ignore empty '#' links to prevent crashing
-            if (href === '#' || href === '') {
-                e.preventDefault();
+            // Ignore empty '#' links to prevent errors
+            if (href === '#' || href === '' || href === 'javascript:void(0)') {
                 return;
             }
 
-            // Only scroll if the target exists on the CURRENT visible page
             try {
-                const target = document.querySelector(href);
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                if (href.startsWith('#')) {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
                 }
             } catch (error) {
-                // Ignore errors for invalid selectors
-                console.log('Smooth scroll ignored for:', href);
+                // Ignore errors
             }
         });
     });
 }
 
-// 5. Contact Form (WhatsApp Integration)
+/* =========================================
+   4. CONTACT FORM (WhatsApp)
+   ========================================= */
 function initContactForm() {
     const contactForm = document.getElementById('contact-form');
     if (!contactForm) return;
 
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.onsubmit = function(e) {
         e.preventDefault();
 
         const name = document.getElementById('name').value;
@@ -172,10 +172,15 @@ function initContactForm() {
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
         window.open(whatsappUrl, '_blank');
-    });
+        
+        // Reset the form
+        contactForm.reset();
+    };
 }
 
-// 6. Testimonial Slider
+/* =========================================
+   5. UI COMPONENTS
+   ========================================= */
 function initTestimonialSlider() {
     const testimonials = document.querySelectorAll('.testimonial');
     let currentTestimonial = 0;
@@ -187,13 +192,14 @@ function initTestimonialSlider() {
         if (testimonials[index]) testimonials[index].classList.add('active');
     }
     
-    setInterval(() => {
+    if (window.testimonialInterval) clearInterval(window.testimonialInterval);
+    
+    window.testimonialInterval = setInterval(() => {
         currentTestimonial = (currentTestimonial + 1) % testimonials.length;
         showTestimonial(currentTestimonial);
     }, 6000);
 }
 
-// 7. Portfolio Modal
 function initPortfolioModal() {
     const modal = document.getElementById('portfolio-modal');
     const modalTriggers = document.querySelectorAll('.portfolio-modal-trigger');
@@ -224,7 +230,6 @@ function initPortfolioModal() {
     });
 }
 
-// 8. Accordion
 function initAccordion() {
     const accordionHeaders = document.querySelectorAll('.accordion__header');
     
@@ -248,17 +253,13 @@ function initAccordion() {
     });
 }
 
-// 9. Service Navigation
 function initServiceNavigation() {
     const cards = document.querySelectorAll('.service-overview-card, .card');
     
     cards.forEach(card => {
-        // Find links inside cards that have data-page attributes
         const link = card.querySelector('a[data-page]');
         if (link) {
-            // Make the whole card clickable
             card.addEventListener('click', function(e) {
-                // Don't trigger if user clicked a button or link directly (to avoid double trigger)
                 if (e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON') {
                     const targetPage = link.getAttribute('data-page');
                     showPage(targetPage);
@@ -269,7 +270,6 @@ function initServiceNavigation() {
     });
 }
 
-// 10. Scroll Animations
 function initScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -288,20 +288,21 @@ function initScrollAnimations() {
     });
 }
 
-// 11. Hero Carousel
-document.addEventListener('DOMContentLoaded', function() {
+function initHeroCarousel() {
     const wrap = document.querySelector('.slides-wrap');
     const slides = document.querySelectorAll('.slide');
     if (!wrap || slides.length === 0) return;
 
     let current = 0;
-    setInterval(() => {
+    if (window.carouselInterval) clearInterval(window.carouselInterval);
+
+    window.carouselInterval = setInterval(() => {
         current = (current + 1) % slides.length;
         wrap.style.transform = `translateX(-${current * 100}%)`;
     }, 3000);
-});
+}
 
-// Utility: Debounce for Resize (Fixes "later is not defined" error)
+// Utility: Debounce
 function debounce(func, wait) {
     let timeout;
     return function(...args) {
@@ -310,9 +311,53 @@ function debounce(func, wait) {
     };
 }
 
-// Handle window resize
-window.addEventListener('resize', debounce(() => {
-    if (window.innerWidth > 768) {
-        closeMobileMenu();
+/* =========================================
+   6. STARTUP LOGIC
+   ========================================= */
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('App initialized');
+    
+    // Initialize all functionality (Wrapped in try/catch to prevent one error stopping everything)
+    try { initNavigation(); } catch(e) { console.error('Nav Error:', e); }
+    try { initMobileMenu(); } catch(e) { console.error('Menu Error:', e); }
+    try { initTestimonialSlider(); } catch(e) { console.error('Slider Error:', e); }
+    try { initPortfolioModal(); } catch(e) { console.error('Modal Error:', e); }
+    try { initContactForm(); } catch(e) { console.error('Contact Error:', e); }
+    try { initAccordion(); } catch(e) { console.error('Accordion Error:', e); }
+    try { initServiceNavigation(); } catch(e) { console.error('Service Nav Error:', e); }
+    try { initSmoothScrolling(); } catch(e) { console.error('Scroll Error:', e); }
+    try { initScrollAnimations(); } catch(e) { console.error('Anim Error:', e); }
+    try { initHeroCarousel(); } catch(e) { console.error('Carousel Error:', e); }
+    
+    // Handle URL Hash (for direct links like #services-social)
+    const hash = window.location.hash.substring(1); 
+    if (hash) {
+        showPage(hash);
+    } else {
+        showPage('home');
     }
-}, 250));
+    
+    // Handle Browser Back/Forward buttons
+    window.addEventListener('hashchange', function() {
+        const newHash = window.location.hash.substring(1);
+        if (newHash) {
+            showPage(newHash);
+        } else {
+            showPage('home');
+        }
+    });
+
+    // Update copyright year
+    const currentYear = new Date().getFullYear();
+    const copyrightElement = document.querySelector('.footer__bottom p');
+    if (copyrightElement) {
+        copyrightElement.innerHTML = copyrightElement.innerHTML.replace('2025', currentYear);
+    }
+    
+    // Handle window resize
+    window.addEventListener('resize', debounce(() => {
+        if (window.innerWidth > 768) {
+            closeMobileMenu();
+        }
+    }, 250));
+});
