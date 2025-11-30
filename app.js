@@ -66,6 +66,8 @@ function showPage(pageId) {
 
     // Manual overrides if IDs don't match exactly
     if (pageId === 'home') targetPage = document.getElementById('home-page');
+
+    else if (pageId === 'services-social') targetPage = document.getElementById('services-social-page');
     
     if (targetPage) {
         targetPage.classList.add('active');

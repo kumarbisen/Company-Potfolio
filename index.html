@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bisenx - App & Website development company</title>
-    <link rel="stylesheet" href="style.css?v=1.2">
+    <link rel="stylesheet" href="style.css?v=2.5">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +33,7 @@
                                 <li><a href="#" data-page="services-custom">Custom Software</a></li>
                                 <li><a href="#" data-page="services-commerce">Digital Commerce</a></li>
                                 <li><a href="#" data-page="services-ai">Generative AI</a></li>
-                                <li><a href="#" data-page="services-salesforce">Salesforce</a></li>
+                                <li><a href="#" data-page="services-social">Social Media Management</a></li>
                             </ul>
                         </li>
                         <li class="nav__item">
@@ -440,37 +440,92 @@
             </section>
         </section>
 
-        <!-- SALESFORCE SERVICE PAGE -->
-        <section class="page" id="services-salesforce-page">
-            <div class="hero hero--small">
-                <div class="container">
-                    <h1>Salesforce Solutions</h1>
-                    <p>Maximize your CRM potential with expert Salesforce services</p>
-                </div>
-            </div>
-            <section class="section">
-                <div class="container">
-                    <div class="grid grid--2">
-                        <div class="salesforce-service card">
-                            <h3>Salesforce Implementation</h3>
-                            <p>Complete setup and configuration of Salesforce CRM</p>
+     
+
+        <!-- social media management -->
+
+        <section class="page" id="services-social-page">
+    <div class="hero hero--small">
+        <div class="container">
+            <h1>Social Media Management</h1>
+            <p>Grow your brand presence with our expert content strategies</p>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <div class="section__title" style="margin-bottom: 40px;">Choose Your Growth Package</div>
+            
+            <div class="grid grid--3">
+                
+                <div class="pricing-card card" style="border-top: 4px solid var(--color-teal-500);">
+                    <div class="pricing-header">
+                        <div class="icon-wrapper" style="background: rgba(50, 184, 198, 0.1); color: var(--color-teal-500);">
+                            <i class="fas fa-thumbs-up"></i>
                         </div>
-                        <div class="salesforce-service card">
-                            <h3>Custom Development</h3>
-                            <p>Tailored Salesforce apps and integrations</p>
-                        </div>
-                        <div class="salesforce-service card">
-                            <h3>Data Migration</h3>
-                            <p>Seamless transfer of your existing data</p>
-                        </div>
-                        <div class="salesforce-service card">
-                            <h3>Training & Support</h3>
-                            <p>Comprehensive user training and ongoing support</p>
-                        </div>
+                        <h3>Standard Package</h3>
+                        <span class="sub-label">Essential Growth</span>
                     </div>
+                    <div class="price-tag">
+                        <span class="amount">₹12,000</span><span class="period">/mo</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>10-15 High quality edited reels</li>
+                        <li>Profile Optimization</li>
+                        <li>Dedicated profile management (Bio, highlights, covers)</li>
+                        <li>Content posting & research</li>
+                        <li>5-7 Posters/Carousels</li>
+                    </ul>
+                    <a href="#" onclick="showPage('contact'); return false;" class="btn btn--outline btn--full-width">Get Started</a>
                 </div>
-            </section>
-        </section>
+
+                <div class="pricing-card card" style="border-top: 4px solid var(--color-orange-500);">
+                    <div class="pricing-header">
+                        <div class="icon-wrapper" style="background: rgba(230, 129, 97, 0.1); color: var(--color-orange-500);">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Advance Package</h3>
+                        <span class="sub-label">Accelerated Reach</span>
+                    </div>
+                    <div class="price-tag">
+                        <span class="amount">₹17,000</span><span class="period">/mo</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><strong>Everything in Standard</strong></li>
+                        <li>20-22 High quality edited reels</li>
+                        <li>15 Stories</li>
+                        <li>Messages & Replies management</li>
+                        <li>15 Posters/Carousels (as per need)</li>
+                    </ul>
+                    <a href="#" onclick="showPage('contact'); return false;" class="btn btn--primary btn--full-width">Get Started</a>
+                </div>
+
+                <div class="pricing-card card" style="border-top: 4px solid var(--color-red-500);">
+                    <div class="pricing-header">
+                        <div class="icon-wrapper" style="background: rgba(255, 84, 89, 0.1); color: var(--color-red-500);">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3>Premium Package</h3>
+                        <span class="sub-label">Dominant Presence</span>
+                    </div>
+                    <div class="price-tag">
+                        <span class="amount">₹25,000</span><span class="period">/mo</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><strong>Everything in Advance</strong></li>
+                        <li>30+ High quality edited reels</li>
+                        <li>Daily Stories</li>
+                        <li>Viral Content suggestions</li>
+                        <li>Full script guide & 24/7 availability</li>
+                        <li>Dedicated business growth strategy</li>
+                    </ul>
+                    <a href="#" onclick="showPage('contact'); return false;" class="btn btn--outline btn--full-width">Get Started</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</section>
 
         <!-- PRICING PAGE -->
 <section class="page" id="pricing-page">
@@ -1073,6 +1128,6 @@
         </div>
     </footer>
 
-    <script src="app.js?v=1.2"></script>
+    <script src="app.js?v=2.3"></script>
 </body>
 </html>
